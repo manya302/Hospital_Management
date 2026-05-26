@@ -271,7 +271,7 @@ router.get('/stats/dashboard', async (req, res) => {
                        COUNT(CASE WHEN status='Scheduled'          THEN 1 END) AS scheduled,
                        COUNT(CASE WHEN status='Completed'          THEN 1 END) AS completed,
                        COUNT(CASE WHEN status='Cancelled'          THEN 1 END) AS cancelled,
-                       COUNT(CASE WHEN appointment_date=CURRENT_DATE THEN 1 END) AS today
+                       COUNT(CASE WHEN appointment_date = (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata')::date THEN 1 END) AS today
                 FROM appointments
             `),
             db.query(`

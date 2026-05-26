@@ -12,11 +12,11 @@
     <div class="nav-container">
         <div class="logo"><h2>Aarogya <span>| HMS</span></h2></div>
         <ul class="nav-links" id="nav-links">
-            <li><button data-page="home">🏠 Home</button></li>
-            <li><button data-page="patient">👤 Patient Portal</button></li>
-            <li><button data-page="doctor">👨‍⚕️ Doctor Dashboard</button></li>
-            <li><button data-page="appointments">📅 Appointments</button></li>
-            <li><button data-page="admin">⚙️ Admin Panel</button></li>
+            <li><button data-page="home">Home</button></li>
+            <li><button data-page="patient">Patient Portal</button></li>
+            <li><button data-page="doctor">Doctor Dashboard</button></li>
+            <li><button data-page="appointments">Appointments</button></li>
+            <li><button data-page="admin">Admin Panel</button></li>
         </ul>
     </div>
 </div>
@@ -29,30 +29,29 @@
             <h1>Aarogya Hospital</h1>
             <p>Compassionate care, advanced healing — your health, our mission.</p>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-                <button class="primary-btn" id="quickBookBtn">📅 Book an Appointment</button>
-                <button class="primary-btn" id="quickAddPatientBtn" style="background:#0b6e4f">➕ Register New Patient</button>
-                <button class="primary-btn" id="showTreatmentsBtn" style="background:#7b1fa2">🩺 Our Treatments</button>
+                <button class="primary-btn" id="quickBookBtn">Book an Appointment</button>
+                <button class="primary-btn" id="quickAddPatientBtn" style="background:#0b6e4f">Register New Patient</button>
+                <button class="primary-btn" id="showTreatmentsBtn" style="background:#7b1fa2">Our Treatments</button>
             </div>
         </div>
         <!-- Treatment Stats Summary Bar -->
         <div id="homeTreatmentBar" class="card" style="margin-bottom:1.5rem;display:none">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-                <h3 style="margin:0">🩺 Treatments at a Glance</h3>
+                <h3 style="margin:0">Treatments at a Glance</h3>
                 <button class="primary-btn" id="viewTreatmentChartBtn" style="font-size:0.85rem;padding:0.5rem 1.1rem">
-                    📊 View Full Breakdown
+                    View Full Breakdown
                 </button>
             </div>
             <div id="homeTreatmentStats" style="display:flex;flex-wrap:wrap;gap:1rem"></div>
         </div>
 
         <div class="grid-2col">
-            <div class="card"><h3>🏆 Why Choose Us?</h3><p>24/7 emergency, expert doctors, modern technology, patient-first approach.</p></div>
-            <div class="card"><h3>🕒 Visiting Hours</h3><p>Mon–Sat: 9am – 8pm | Sunday: 10am – 4pm<br>Emergency: 24/7</p></div>
-            <div class="card"><h3>📞 Contact</h3><p>📞 +91 9998887770<br>📍 123 Health Ave, Medical City</p></div>
+            <div class="card"><h3>Why Choose Us?</h3><p>24/7 emergency, expert doctors, modern technology, patient-first approach.</p></div>
+            <div class="card"><h3>Visiting Hours</h3><p>Mon–Sat: 9am – 8pm | Sunday: 10am – 4pm<br>Emergency: 24/7</p></div>
+            <div class="card"><h3>Contact</h3><p>📞 +91 9998887770<br>📍 123 Health Ave, Medical City</p></div>
             <div class="card">
-                <h3>⭐ Patient Rating</h3>
-                <!-- NOTE: No reviews table exists in the DB schema. This rating is a static placeholder.
-                     To make it real, create a `reviews` table with patient_id, rating, comment, created_at. -->
+                <h3> Patient Rating</h3>
+                <!-- NOTE: No reviews table exists in the DB schema. This rating is a static placeholder. -->
                 <p>★★★★★ 4.2/5 based on 1250+ reviews</p>
                 <p style="font-size:0.75rem;color:#aaa;margin-top:0.3rem">(Static placeholder — no reviews table in DB)</p>
             </div>
@@ -62,8 +61,8 @@
         <div id="treatmentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center">
             <div style="background:#fff;border-radius:28px;padding:2rem;max-width:700px;width:92%;max-height:88vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
                 <button onclick="closeTreatmentModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#4a627a">✕</button>
-                <h2 style="color:#0f2b3d;margin-bottom:0.3rem">🩺 Treatment Breakdown</h2>
-                <p style="color:#4a627a;font-size:0.85rem;margin-bottom:1.2rem">Live data from the <code>treatments</code> table — grouped by <code>treatment_type</code></p>
+                <h2 style="color:#0f2b3d;margin-bottom:0.3rem">Treatment Breakdown</h2>
+                <p style="color:#4a627a;font-size:0.85rem;margin-bottom:1.2rem">
                 <div id="modalTreatmentStats" style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:1.5rem"></div>
                 <div style="position:relative;height:320px">
                     <canvas id="treatmentModalChart"></canvas>
@@ -106,7 +105,7 @@
 
         <!-- LIKE search + string built-in functions -->
         <div class="card">
-            <h3>🔤 Search by Name <small style="color:#4a627a;font-weight:400">(uses LIKE, COALESCE)</small></h3>
+             <h3>Search by Name <small style="color:#4a627a;font-weight:400">(uses LIKE, COALESCE)</small></h3>
             <div class="form-group">
                 <label>Patient Name or Email</label>
                 <input type="text" id="searchPatientName" placeholder="e.g. Smith or john@email.com">
@@ -118,7 +117,7 @@
         <!-- SELECT by primary key -->
 
         <div class="card">
-            <h3>🔍 Search by Patient ID</h3>
+            <h3>Search by Patient ID</h3>
             <div class="form-group">
                 <label>Patient ID (e.g., P001) - scroll down for search results</label>
                 <input type="text" id="searchPatientId" placeholder="Enter Patient ID">
@@ -127,18 +126,18 @@
         </div>
 
         <div id="patientResults" style="display:none">
-            <div class="card"><h3>👤 Patient Information</h3><div id="patientInfo"></div></div>
-            <div class="card"><h3>📅 Today's Appointments</h3><div id="todayAppointments"></div></div>
-            <div class="card"><h3>📋 Upcoming Appointments</h3><div id="upcomingAppointments"></div></div>
-            <div class="card"><h3>📜 Past Appointments</h3><div id="pastAppointments"></div></div>
-            <div class="card"><h3>💰 Billing Information</h3><div id="patientBillingInfo"></div></div>
+            <div class="card"><h3>Patient Information</h3><div id="patientInfo"></div></div>
+            <div class="card"><h3>Today's Appointments</h3><div id="todayAppointments"></div></div>
+            <div class="card"><h3>Upcoming Appointments</h3><div id="upcomingAppointments"></div></div>
+            <div class="card"><h3>Past Appointments</h3><div id="pastAppointments"></div></div>
+            <div class="card"><h3>Billing Information</h3><div id="patientBillingInfo"></div></div>
         </div>
     </div>
 
     <!-- DOCTOR DASHBOARD -->
     <div id="doctor-page" class="page">
         <div class="card">
-            <h3>🔍 Search Doctor</h3>
+            <h3>Search Doctor</h3>
             <div class="form-group">
                 <label>Doctor ID (e.g., D001)</label>
                 <input type="text" id="searchDoctorId" placeholder="Enter Doctor ID">
@@ -146,12 +145,12 @@
             <button class="primary-btn" id="searchDoctorBtn">Search</button>
         </div>
         <div id="doctorResults" style="display:none">
-            <div class="card"><h3>👨‍⚕️ Doctor Information</h3><div id="doctorInfo"></div></div>
+            <div class="card"><h3>Doctor Information</h3><div id="doctorInfo"></div></div>
             <div class="card">
-                <h3>📊 Treatments Performed</h3>
+                <h3>Treatments Performed</h3>
                 <canvas id="treatmentsChart" width="400" height="200"></canvas>
             </div>
-            <div class="card"><h3>📅 Upcoming Appointments</h3><div id="doctorUpcomingAppointments"></div></div>
+            <div class="card"><h3>Upcoming Appointments</h3><div id="doctorUpcomingAppointments"></div></div>
         </div>
     </div>
 
@@ -176,7 +175,7 @@
 
         <!-- search by ID -->
         <div class="card">
-            <h3>🔍 Search Appointments</h3>
+            <h3>Search Appointments</h3>
             <div class="form-group">
                 <label>Appointment ID or Patient ID</label>
                 <input type="text" id="searchAppointmentQuery" placeholder="Enter ID">
@@ -187,7 +186,7 @@
 
         <!-- ORDER BY (click headers to sort) -->
         <div class="card">
-            <h3>📆 All Appointments</h3>
+            <h3>All Appointments</h3>
             <div id="allAppointmentsTable"></div>
         </div>
     </div>
@@ -200,45 +199,45 @@
 
         <!--GROUP BY trend chart -->
         <div class="card">
-            <h3>📈 Appointment Trends <small style="color:#4a627a;font-weight:400">(GROUP BY date)</small></h3>
+            <h3>Appointment Trends <small style="color:#4a627a;font-weight:400">(GROUP BY date)</small></h3>
             <canvas id="trendChart" width="400" height="200"></canvas>
         </div>
 
         <!-- GROUP BY + COUNT/CASE + doctor_workload VIEW -->
         <div class="card">
-            <h3>👨‍⚕️ Doctor Load <small style="color:#4a627a;font-weight:400">(GROUP BY + COUNT + VIEW)</small></h3>
+            <h3>Doctor Load <small style="color:#4a627a;font-weight:400">(GROUP BY + COUNT + VIEW)</small></h3>
             <div id="adminDoctorList"></div>
         </div>
 
         <!-- GROUP BY + HAVING -->
         <div class="card">
-            <h3>🔥 Busy Specialties <small style="color:#4a627a;font-weight:400">(GROUP BY + HAVING)</small></h3>
+            <h3>Busy Specialties <small style="color:#4a627a;font-weight:400">(GROUP BY + HAVING)</small></h3>
             <div id="adminBusySpecialties"></div>
         </div>
 
         <!-- EXCEPT -->
         <div class="card">
-            <h3>⚠️ Missing Billing Alerts <small style="color:#4a627a;font-weight:400">(EXCEPT)</small></h3>
+            <h3>Missing Billing Alerts <small style="color:#4a627a;font-weight:400">(EXCEPT)</small></h3>
             <div id="adminMissingBilling"></div>
         </div>
 
         <div class="grid-2col">
             <!-- NOT EXISTS (patients) -->
             <div class="card">
-                <h3>📬 Never Appointed <small style="color:#4a627a;font-weight:400">(NOT EXISTS)</small></h3>
+                <h3>Never Appointed <small style="color:#4a627a;font-weight:400">(NOT EXISTS)</small></h3>
                 <div id="adminNeverAppointed"></div>
             </div>
 
             <!-- NOT EXISTS (doctors) -->
             <div class="card">
-                <h3>✅ Available Doctors <small style="color:#4a627a;font-weight:400">(NOT EXISTS)</small></h3>
+                <h3>Available Doctors <small style="color:#4a627a;font-weight:400">(NOT EXISTS)</small></h3>
                 <div id="adminAvailableDoctors"></div>
             </div>
         </div>
 
         <!-- explicit cursor -->
         <div class="card">
-            <h3>💸 Outstanding Bills <small style="color:#4a627a;font-weight:400">(Explicit Cursor)</small></h3>
+            <h3>Outstanding Bills <small style="color:#4a627a;font-weight:400">(Explicit Cursor)</small></h3>
             <div id="adminUnpaidPatients"></div>
         </div>
 

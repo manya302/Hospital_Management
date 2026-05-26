@@ -80,7 +80,7 @@ async function searchPatient() {
         </div>
         ${patAppts.length === 0 ? `
         <div style="margin-top:0.8rem;padding:0.6rem 1rem;background:#fff3e0;border-radius:12px;color:#c67c00;font-size:0.9rem">
-            ⚠️ No appointment history — shown via <code>NOT EXISTS</code> check in Patient Portal
+            No appointment history — shown via <code>NOT EXISTS</code> check in Patient Portal
         </div>` : ''}
     `;
     document.getElementById('todayAppointments').innerHTML    = renderAppointmentTable(todayApps, doctors);
@@ -127,7 +127,7 @@ async function registerPatient(e) {
     const insurance_number   = document.getElementById('newInsuranceNumber').value.trim() || null;
 
     if (!first_name || !last_name || !email) {
-        statusEl.innerHTML = `<span style="color:#c73e1a">❌ First name, last name and email are required.</span>`;
+        statusEl.innerHTML = `<span style="color:#c73e1a" First name, last name and email are required.</span>`;
         return;
     }
     statusEl.innerHTML = `<span style="color:#1e88e5">🔄 Registering patient…</span>`;
@@ -138,13 +138,13 @@ async function registerPatient(e) {
         });
         if (result.id || result.patient_id) {
             const newId = result.id || result.patient_id;
-            statusEl.innerHTML = `<span style="color:#388e3c">✅ Patient registered successfully! ID: <strong>${newId}</strong></span>`;
+            statusEl.innerHTML = `<span style="color:#388e3c">Patient registered successfully! ID: <strong>${newId}</strong></span>`;
             document.getElementById('addPatientForm').reset();
         } else {
-            statusEl.innerHTML = `<span style="color:#c73e1a">❌ ${result.error || 'Registration failed'}</span>`;
+            statusEl.innerHTML = `<span style="color:#c73e1a">${result.error || 'Registration failed'}</span>`;
         }
     } catch (err) {
-        statusEl.innerHTML = `<span style="color:#c73e1a">❌ Error: ${err.message}</span>`;
+        statusEl.innerHTML = `<span style="color:#c73e1a">Error: ${err.message}</span>`;
     }
 }
 
@@ -206,7 +206,7 @@ async function searchDoctor() {
         </div>
         ${cursorSchedule.length ? `
         <div style="margin-top:1rem">
-            <p style="font-weight:600;color:#0f2b3d;margin-bottom:0.4rem">📋 Schedule via Parameterized Cursor</p>
+            <p style="font-weight:600;color:#0f2b3d;margin-bottom:0.4rem">Schedule via Parameterized Cursor</p>
             <table class="data-table"><thead><tr><th>Appt ID</th><th>Patient</th><th>Date</th><th>Time</th><th>Status</th></tr></thead><tbody>
             ${[...cursorSchedule].sort((a,b) => new Date(b.appt_date) - new Date(a.appt_date)).map(r=>`<tr>
                 <td>${r.appointment_id}</td><td>${r.patient_name}</td>
@@ -316,8 +316,8 @@ async function searchAppointment() {
         );
     }
     document.getElementById('appointmentSearchResults').innerHTML = results.length
-        ? `<h4>📋 ${results.length} result(s) for "${query}"</h4>${renderDetailedAppointmentTable(results, doctors, patients)}`
-        : `<div style="padding:1rem;background:#fff3e0;border-radius:12px;color:#c67c00">❌ No appointments found for <strong>${query}</strong></div>`;
+        ? `<h4>${results.length} result(s) for "${query}"</h4>${renderDetailedAppointmentTable(results, doctors, patients)}`
+        : `<div style="padding:1rem;background:#fff3e0;border-radius:12px;color:#c67c00">No appointments found for <strong>${query}</strong></div>`;
 }
 
 async function bookAppointment(e) {
@@ -330,19 +330,19 @@ async function bookAppointment(e) {
         reason_for_visit: document.getElementById('appReason').value
     };
     const statusEl = document.getElementById('bookingStatus');
-    if (statusEl) statusEl.innerHTML = `<span style="color:#1e88e5">🔄 Booking with transaction (BEGIN/SAVEPOINT/COMMIT)…</span>`;
+    if (statusEl) statusEl.innerHTML = `<span style="color:#1e88e5">Booking with transaction (BEGIN/SAVEPOINT/COMMIT)…</span>`;
     try {
         // Transaction + Trigger validation
         const result = await apiPost('/analytics/appointments/book-safe', appointmentData);
         if (result.success) {
-            if (statusEl) statusEl.innerHTML = `<span style="color:#388e3c">✅ ${result.message}</span>`;
+            if (statusEl) statusEl.innerHTML = `<span style="color:#388e3c">${result.message}</span>`;
             alert(`✅ Booked! ID: ${result.appointment_id}`);
             document.getElementById('newAppointmentForm').reset();
             renderAllAppointments();
         } else {
             //trigger may have blocked this (e.g. past date)
-            if (statusEl) statusEl.innerHTML = `<span style="color:#c73e1a">❌ ${result.error}</span>`;
-            alert(`❌ Booking failed (trigger or validation):\n${result.error}`);
+            if (statusEl) statusEl.innerHTML = `<span style="color:#c73e1a">${result.error}</span>`;
+            alert(`Booking failed (trigger or validation):\n${result.error}`);
         }
     } catch(error) {
         // Fallback to legacy route
@@ -423,7 +423,7 @@ async function renderAdminPanel() {
         type:'line',
         data:{ labels:last7, datasets:[{ label:'Appointments', data:counts,
             borderColor:'rgb(75,192,192)', backgroundColor:'rgba(75,192,192,0.2)', tension:0.1, fill:true }] },
-        options:{ responsive:true, plugins:{ title:{ display:true, text:'Appointment Trends (GROUP BY date)' } },
+        options:{ responsive:true, plugins:{ title:{ display:true } },
                   scales:{ y:{ beginAtZero:true } } }
     });
 
@@ -462,7 +462,7 @@ async function renderAdminPanel() {
         <p style="font-size:0.8rem;color:#4a627a;margin-bottom:0.5rem"><code>SELECT FROM appointments EXCEPT SELECT FROM billing</code></p>
         <table class="data-table"><thead><tr><th>Patient</th><th>Email</th><th>Appointments</th></tr></thead><tbody>
         ${missingBilling.map(p=>`<tr><td>${p.full_name}</td><td>${p.email}</td><td>${p.appointment_count}</td></tr>`).join('')}
-        </tbody></table>` : '<p style="color:#388e3c">✅ All patients with appointments have billing records.</p>';
+        </tbody></table>` : '<p style="color:#388e3c">All patients with appointments have billing records.</p>';
 
     // ── NOT EXISTS: never appointed ──
     const neverEl = document.getElementById('adminNeverAppointed');
@@ -470,7 +470,7 @@ async function renderAdminPanel() {
         <p style="font-size:0.8rem;color:#4a627a;margin-bottom:0.5rem"><code>WHERE NOT EXISTS (SELECT 1 FROM appointments ...)</code></p>
         <table class="data-table"><thead><tr><th>Patient</th><th>Email</th><th>Registered</th></tr></thead><tbody>
         ${neverAppointed.map(p=>`<tr><td>${p.full_name}</td><td>${p.email}</td><td>${p.registered_on}</td></tr>`).join('')}
-        </tbody></table>` : '<p style="color:#388e3c">✅ All registered patients have at least one appointment.</p>';
+        </tbody></table>` : '<p style="color:#388e3c">All registered patients have at least one appointment.</p>';
 
     // ── NOT EXISTS: available doctors ──
     const availEl = document.getElementById('adminAvailableDoctors');
@@ -489,7 +489,7 @@ async function renderAdminPanel() {
             <td>${p.patient_id}</td><td>${p.full_name}</td><td>${p.bill_count}</td>
             <td style="color:#c73e1a;font-weight:600">$${Number(p.outstanding_amount).toFixed(2)}</td>
         </tr>`).join('')}
-        </tbody></table>` : '<p style="color:#388e3c">✅ No outstanding bills.</p>';
+        </tbody></table>` : '<p style="color:#388e3c">No outstanding bills.</p>';
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────
@@ -604,7 +604,7 @@ async function openTreatmentModal() {
         data = await apiGet('/analytics/stats/treatments-summary');
     } catch(e) {
         document.getElementById('modalTreatmentStats').innerHTML =
-            '<span style="color:#c73e1a">❌ Could not load treatment data. Make sure the backend is running.</span>';
+            '<span style="color:#c73e1a"> Could not load treatment data. Make sure the backend is running.</span>';
         return;
     }
 
@@ -737,7 +737,7 @@ async function init() {
             .catch(() => {});
     }
     else document.querySelector('.container').innerHTML =
-        '<div class="card" style="text-align:center"><h2>⚠️ Backend Not Connected</h2>' +
+        '<div class="card" style="text-align:center"><h2>Backend Not Connected</h2>' +
         '<p>Please start the backend server with: <code>node server.js</code></p></div>';
 }
 init();
